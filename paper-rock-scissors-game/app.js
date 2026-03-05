@@ -44,9 +44,31 @@ else return computerWin; // computerwin
 
 // monitor the start game button 
 startGameBtn.addEventListener('click', function() {
-const playerChoice=getPlayerChoice();
-const computerChoice=getComputerChoice();
-if(unValidInput===1) return console.log(unValid); // check invalid input
-const winner=getWinner(computerChoice,playerChoice);
-console.log(winner); // display the winner
+  const playerChoice = getPlayerChoice();
+  const computerChoice = getComputerChoice();
+  const resultDisplay = document.getElementById('result-display');
+  
+  const winner = getWinner(computerChoice, playerChoice);
+  
+  let message = '';
+  let resultClass = '';
+  
+  if (winner === resultDraw) {
+    message = `🤝 It's a DRAW! You both chose ${playerChoice}`;
+    resultClass = 'draw';
+  } else if (winner === playreWin) {
+    message = `🎉 YOU WIN! ${playerChoice} beats ${computerChoice}`;
+    resultClass = 'win';
+  } else {
+    message = `😞 COMPUTER WINS! ${computerChoice} beats ${playerChoice}`;
+    resultClass = 'lose';
+  }
+  
+  resultDisplay.textContent = message;
+  resultDisplay.className = `result-display show ${resultClass}`;
+  
+  // Reset flag for next game
+  unValidInput = 1;
 })
+
+
